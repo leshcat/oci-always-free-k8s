@@ -5,7 +5,7 @@ data "oci_core_images" "workers" {
 
 resource "oci_core_instance" "worker" {
   compartment_id      = var.compartment_id
-  availability_domain = data.oci_identity_availability_domains.ads.availability_domains[0].name
+  availability_domain = data.oci_identity_availability_domains.ads.availability_domains["${count.index}"].name
 
   count        = var.workers.count
   display_name = "${var.workers.base_hostname}-${count.index}"
